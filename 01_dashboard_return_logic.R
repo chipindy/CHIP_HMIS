@@ -2,7 +2,7 @@ library(tidyverse)
 library(lubridate)
 library(dplyr)
 library(readxl)
-# library(xlsx)
+library(xlsx)
 
 save_directory <- "C:/Users/GwenBeebe/CHIP/File Share - CHIP File Share/CHIP Shared Files/CES-HMIS/"
 
@@ -23,9 +23,9 @@ if (file_to_generate == "PM") {
                                         "text", "date"))
   } else {
   Enrollments <- 
-    read_excel(file_name, col_types = c("numeric", "numeric", "numeric", "text", "text", "text", "text", "text", 
+    read_excel(file_name, col_types = c("numeric", "numeric", "numeric", "text", "text", "text", "text", "text", "text", 
                                         "text", "date", "date", "date", "date", "text", "numeric", "numeric", "text", 
-                                        "date", "text", "text", "date", "numeric"))
+                                        "numeric", "text", "text", "date", "numeric", "numeric"))
 }
 
 
@@ -123,16 +123,17 @@ if (file_to_generate == "SP") {
 }
 
 
-##  Read in data quality report for system performance dashboard
-if (file_to_generate == "SP") {
-  data_quality <- 
-    read_excel(file.choose())
-  Enrollments <- Enrollments %>%
-    left_join(data_quality %>%
-                select(EnrollID, QuestionsToAnswer, QuestionsAnswered),
-              by = "EnrollID")
-  
-}
+
+# ##  Read in data quality report for system performance dashboard
+# if (file_to_generate == "SP") {
+#   data_quality <- 
+#     read_excel(file.choose())
+#   Enrollments <- Enrollments %>%
+#     left_join(data_quality %>%
+#                 select(EnrollID, QuestionsToAnswer, QuestionsAnswered),
+#               by = "EnrollID")
+#   
+# }
 
 
 ## adds returns columns and generates "flagged" df with returns data
